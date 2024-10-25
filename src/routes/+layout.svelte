@@ -37,6 +37,7 @@
 	injectSpeedInsights()
 </script>
 
+<svelte:head>
 <!-- Primary Meta Tags -->
 <title>NotAussie's fort </title>
 <meta name="title" content="NotAussie's fort " />
@@ -55,6 +56,7 @@
 <meta property="twitter:title" content="NotAussie's fort " />
 <meta property="twitter:description" content="Learn about whom NotAussie is, and read all their juicy blog posts!" />
 <meta property="twitter:image" content="https://aussies-fort.vercel.app/banner.png" />
+</svelte:head>
 
 <!-- App Shell -->
 <AppShell>
