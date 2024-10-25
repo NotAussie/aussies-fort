@@ -30,9 +30,11 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
-	// Vercel analytics
+	// Vercel functions
 	import { inject } from '@vercel/analytics'
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 	inject()
+	injectSpeedInsights()
 </script>
 
 <!-- App Shell -->
