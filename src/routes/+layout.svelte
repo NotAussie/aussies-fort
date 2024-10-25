@@ -37,6 +37,25 @@
 	injectSpeedInsights()
 </script>
 
+<!-- Primary Meta Tags -->
+<title>NotAussie's fort </title>
+<meta name="title" content="NotAussie's fort " />
+<meta name="description" content="Learn about whom NotAussie is, and read all their juicy blog posts!" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aussies-fort.vercel.app/" />
+<meta property="og:title" content="NotAussie's fort " />
+<meta property="og:description" content="Learn about whom NotAussie is, and read all their juicy blog posts!" />
+<meta property="og:image" content="https://aussies-fort.vercel.app/banner.png" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://aussies-fort.vercel.app/" />
+<meta property="twitter:title" content="NotAussie's fort " />
+<meta property="twitter:description" content="Learn about whom NotAussie is, and read all their juicy blog posts!" />
+<meta property="twitter:image" content="https://aussies-fort.vercel.app/banner.png" />
+
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header">
