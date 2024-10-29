@@ -33,8 +33,15 @@
 	// Vercel functions
 	import { inject } from '@vercel/analytics'
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+	
 	inject()
 	injectSpeedInsights()
+
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 <svelte:head>
@@ -60,49 +67,57 @@
 
 <!-- App Shell -->
 <AppShell>
-	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar>
+	{#snippet header()}
+	
+			<!-- App Bar -->
+			<AppBar>
 
-			<svelte:fragment slot="lead">
-				<a href="/"><strong class="text-xl uppercase">Aussie's fort</strong></a>
-			</svelte:fragment>
+				{#snippet lead()}
+					
+						<a href="/"><strong class="text-xl uppercase">Aussie's fort</strong></a>
+					
+					{/snippet}
 
-			<svelte:fragment slot="trail">
+				{#snippet trail()}
+					
 
-				<LightSwitch/>
+						<LightSwitch/>
 
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://bsky.app/profile/notaussie.bsky.social"
-					target="_blank"
-					rel="noreferrer"
-				>
-					<i class="fa-brands fa-bluesky"></i>/notaussie.lol
-				</a> 
+						<a
+							class="btn btn-sm variant-ghost-surface"
+							href="https://bsky.app/profile/notaussie.bsky.social"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<i class="fa-brands fa-bluesky"></i>/notaussie.lol
+						</a> 
 
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/notaussie/"
-					target="_blank"
-					rel="noreferrer"
-				>
-					<i class="fa-brands fa-github"></i>/NotAussie
-				</a>
-			</svelte:fragment>
+						<a
+							class="btn btn-sm variant-ghost-surface"
+							href="https://github.com/notaussie/"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<i class="fa-brands fa-github"></i>/NotAussie
+						</a>
+					
+					{/snippet}
 
-		</AppBar>
-	</svelte:fragment>
+			</AppBar>
+		
+	{/snippet}
 
-	<svelte:fragment slot="pageFooter">
-		<footer class="flex justify-center p-8">
-			© 2024 NotAussie.
-		</footer>
-	</svelte:fragment>
+	{#snippet pageFooter()}
+	
+			<footer class="flex justify-center p-8">
+				© 2024 NotAussie.
+			</footer>
+		
+	{/snippet}
 
 	<!-- Page Route Content -->
-	<slot />
-</AppShell>
+	{@render children?.()}
+</AppShell> 
 
 <style>
 	i.fa-brands {

@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	let message = '';
+	let message = $state('');
 
     onMount(() => {
         if ($page.error?.message != undefined) {
