@@ -16,7 +16,7 @@
 		<h2 class="h2 pt-4 pb-4">My statistics <i class="fa-solid fa-square-poll-vertical"></i></h2>
 		<div class="flex justify-left gap-4">
 			<div class="card p-4">
-				<header><h3 class="h3">Programming hours<i class="fa-solid fa-skull"></i></h3></header>
+				<header><h3 class="h3">Programming hours <i class="fa-solid fa-skull"></i></h3></header>
 				<section>{data.time}</section>
 				<footer>
 					<p class="italic">

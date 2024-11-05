@@ -31,11 +31,11 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	// Vercel functions
-	import { inject } from '@vercel/analytics'
+	import { inject } from '@vercel/analytics';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
-	
-	inject()
-	injectSpeedInsights()
+
+	inject();
+	injectSpeedInsights();
 
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -45,82 +45,74 @@
 </script>
 
 <svelte:head>
-<!-- Primary Meta Tags -->
-<title>NotAussie's fort</title>
-<meta name="title" content="NotAussie's fort" />
-<meta name="description" content="Learn about whom NotAussie is, and read all their juicy blog posts!" />
+	<!-- Primary Meta Tags -->
+	<title>NotAussie's fort</title>
+	<meta name="title" content="NotAussie's fort" />
+	<meta
+		name="description"
+		content="Learn about whom NotAussie is, and read all their juicy blog posts!"
+	/>
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://aussies-fort.vercel.app/" />
-<meta property="og:title" content="NotAussie's fort" />
-<meta property="og:description" content="Learn about whom NotAussie is, and read all their juicy blog posts!" />
-<meta property="og:image" content="https://aussies-fort.vercel.app/banner.png" />
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://aussies-fort.vercel.app/" />
+	<meta property="og:title" content="NotAussie's fort" />
+	<meta
+		property="og:description"
+		content="Learn about whom NotAussie is, and read all their juicy blog posts!"
+	/>
+	<meta property="og:image" content="https://aussies-fort.vercel.app/banner.png" />
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://aussies-fort.vercel.app/" />
-<meta property="twitter:title" content="NotAussie's fort" />
-<meta property="twitter:description" content="Learn about whom NotAussie is, and read all their juicy blog posts!" />
-<meta property="twitter:image" content="https://aussies-fort.vercel.app/banner.png" />
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:url" content="https://aussies-fort.vercel.app/" />
+	<meta property="twitter:title" content="NotAussie's fort" />
+	<meta
+		property="twitter:description"
+		content="Learn about whom NotAussie is, and read all their juicy blog posts!"
+	/>
+	<meta property="twitter:image" content="https://aussies-fort.vercel.app/banner.png" />
 </svelte:head>
 
 <!-- App Shell -->
 <AppShell>
 	{#snippet header()}
-	
-			<!-- App Bar -->
-			<AppBar>
+		<!-- App Bar -->
+		<AppBar>
+			{#snippet lead()}
+				<a href="/"><strong class="text-xl uppercase">Aussie's fort</strong></a>
+			{/snippet}
 
-				{#snippet lead()}
-					
-						<a href="/"><strong class="text-xl uppercase">Aussie's fort</strong></a>
-					
-					{/snippet}
+			{#snippet trail()}
+				<LightSwitch />
 
-				{#snippet trail()}
-					
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href="https://bsky.app/profile/notaussie.bsky.social"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<i class="fa-brands fa-bluesky"></i>/notaussie.lol
+				</a>
 
-						<LightSwitch/>
-
-						<a
-							class="btn btn-sm variant-ghost-surface"
-							href="https://bsky.app/profile/notaussie.bsky.social"
-							target="_blank"
-							rel="noreferrer"
-						>
-							<i class="fa-brands fa-bluesky"></i>/notaussie.lol
-						</a> 
-
-						<a
-							class="btn btn-sm variant-ghost-surface"
-							href="https://github.com/notaussie/"
-							target="_blank"
-							rel="noreferrer"
-						>
-							<i class="fa-brands fa-github"></i>/NotAussie
-						</a>
-					
-					{/snippet}
-
-			</AppBar>
-		
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href="https://github.com/notaussie/"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<i class="fa-brands fa-github"></i>/NotAussie
+				</a>
+			{/snippet}
+		</AppBar>
 	{/snippet}
 
 	{#snippet pageFooter()}
-	
-			<footer class="flex justify-center p-8">
-				© 2024 NotAussie.
-			</footer>
-		
+		<a href="https://github.com/notaussie">
+			<footer class="flex justify-center p-8">© 2024 NotAussie.</footer>
+		</a>
 	{/snippet}
 
 	<!-- Page Route Content -->
 	{@render children?.()}
-</AppShell> 
-
-<style>
-	i.fa-brands {
-		padding-left: 0.0rem; /* Adjust the value as needed */
-	}
-</style>
+</AppShell>
