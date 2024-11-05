@@ -86,20 +86,22 @@
 			{#snippet trail()}
 				<LightSwitch />
 
+				<a class="btn btn-sm variant-ghost-surface" href="/blog">
+					<i class="fas fa-newspaper"></i>/Blog
+				</a>
+
 				<a
 					class="btn btn-sm variant-ghost-surface"
 					href="https://bsky.app/profile/notaussie.bsky.social"
 					target="_blank"
-					rel="noreferrer"
 				>
-					<i class="fa-brands fa-bluesky"></i>/notaussie.lol
+					<i class="fa-brands fa-bluesky"></i>/NotAussie.lol
 				</a>
 
 				<a
 					class="btn btn-sm variant-ghost-surface"
 					href="https://github.com/notaussie/"
 					target="_blank"
-					rel="noreferrer"
 				>
 					<i class="fa-brands fa-github"></i>/NotAussie
 				</a>
@@ -108,9 +110,12 @@
 	{/snippet}
 
 	{#snippet pageFooter()}
-		<a href="https://github.com/notaussie">
-			<footer class="flex justify-center p-8">© 2024 NotAussie.</footer>
-		</a>
+		<div class="flex justify-center p-8">
+			<footer>
+				© 2024-{new Date().getFullYear()} <a href="https://github.com/notaussie"> NotAussie</a>,
+				all rights reserved.
+			</footer>
+		</div>
 	{/snippet}
 
 	<!-- Page Route Content -->
