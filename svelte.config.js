@@ -8,6 +8,8 @@ const config = {
 	// for more information about preprocessors
 	preprocess: [vitePreprocess()],
 
+	runes: true,
+
 	vitePlugin: {
 		inspector: true
 	},

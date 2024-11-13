@@ -14,11 +14,12 @@
 		I get to that.
 	</p>
 
-
 	<h2 class="h2 pb-4 pt-4">My skills! <i class="fas fa-brain"></i></h2>
 	<div class="flex space-x-2">
 		{#each skillIcons as icon}
-			<div class="variant-filled btn-icon btn-icon-lg" aria-label="{icon}"><i class="{icon} fa-xl"></i></div>
+			<div class="variant-filled btn-icon btn-icon-lg" aria-label="Programming skill" role="img">
+				<i class="{icon} fa-xl" aria-hidden="true"></i>
+			</div>
 		{/each}
 	</div>
 
