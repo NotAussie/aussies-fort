@@ -46,7 +46,6 @@
 
 <svelte:head>
 	<!-- Primary Meta Tags -->
-	<title>NotAussie's fort</title>
 	<meta name="title" content="NotAussie's fort" />
 	<meta
 		name="description"
@@ -87,7 +86,7 @@
 				<LightSwitch />
 
 				<a
-					class="btn btn-sm variant-ghost-surface"
+					class="variant-ghost-surface btn btn-sm"
 					href="https://bsky.app/profile/notaussie.bsky.social"
 					target="_blank"
 					rel="noreferrer"
@@ -96,7 +95,7 @@
 				</a>
 
 				<a
-					class="btn btn-sm variant-ghost-surface"
+					class="variant-ghost-surface btn btn-sm"
 					href="https://github.com/notaussie/"
 					target="_blank"
 					rel="noreferrer"
@@ -108,11 +107,13 @@
 	{/snippet}
 
 	{#snippet pageFooter()}
-		<a href="https://github.com/notaussie">
-			<footer class="flex justify-center p-8">© 2024 NotAussie.</footer>
-		</a>
+		<footer class="flex justify-center p-8">
+			© 2024 <a href="https://github.com/notaussie" class="pl-1">NotAussie</a>.
+		</footer>
 	{/snippet}
 
 	<!-- Page Route Content -->
-	{@render children?.()}
+	<main class="pl-5 pt-5">
+		{@render children?.()}
+	</main>
 </AppShell>
