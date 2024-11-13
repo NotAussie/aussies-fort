@@ -3,3 +3,5 @@
 // start_mongo().then(() => {
 // console.log('Mongo has connected!')
 // })
+
+export { handle } from './auth';
