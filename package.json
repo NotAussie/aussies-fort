@@ -9,7 +9,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"auto:format": "onchange \"src/**/*.{js,ts,svelte}\" -- npm run format"
 	},
 	"devDependencies": {
 		"@skeletonlabs/skeleton": "2.10.3",
@@ -28,6 +29,7 @@
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.45.1",
+		"onchange": "^7.1.0",
 		"postcss": "8.4.48",
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.6",
