@@ -1,13 +1,23 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
-	import { LightSwitch } from '@skeletonlabs/skeleton';
+
+	// Svelte
 	import { page } from '$app/stores';
+
+	// Skeleton
+	import {
+		AppBar,
+		LightSwitch,
+		Drawer,
+		getDrawerStore,
+		initializeStores,
+		storeHighlightJs,
+		storePopup
+	} from '@skeletonlabs/skeleton';
 
 	// Highlight JS
 	import hljs from 'highlight.js/lib/core';
 	import 'highlight.js/styles/github-dark.css';
-	import { storeHighlightJs } from '@skeletonlabs/skeleton';
 	import xml from 'highlight.js/lib/languages/xml'; // for HTML
 	import css from 'highlight.js/lib/languages/css';
 	import javascript from 'highlight.js/lib/languages/javascript';
@@ -15,6 +25,15 @@
 	import plaintext from 'highlight.js/lib/languages/plaintext';
 	import python from 'highlight.js/lib/languages/python';
 
+	// Floating UI for Popups
+	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
+
+	// Vercel functions
+	import { inject } from '@vercel/analytics';
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+	import { signOut } from '@auth/sveltekit/client';
+
+	// Initialize Highlight.js languages
 	hljs.registerLanguage('xml', xml); // for HTML
 	hljs.registerLanguage('css', css);
 	hljs.registerLanguage('javascript', javascript);
@@ -26,23 +45,8 @@
 	hljs.registerLanguage('py', python);
 	storeHighlightJs.set(hljs);
 
-	// Floating UI for Popups
-	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
+	// Initialize Floating UI for Popups
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-
-	// Vercel functions
-	import { inject } from '@vercel/analytics';
-	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
-	import { signOut } from '@auth/sveltekit/client';
-
-	inject();
-	injectSpeedInsights();
-
-	// Initialize Skeleton stores
-	import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
-	import { initializeStores } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
 
 	// Initialize Skeleton stores
 	initializeStores();
@@ -57,7 +61,11 @@
 	interface Props {
 		children?: import('svelte').Snippet;
 	}
-	let { children } = $props<Props>();
+	let { children } = $props();
+
+	// Vercel analytics
+	inject();
+	injectSpeedInsights();
 </script>
 
 <svelte:head>
@@ -89,58 +97,43 @@
 	<meta property="twitter:image" content="https://aussies-fort.vercel.app/banner.png" />
 </svelte:head>
 
-<!-- Add drawer component outside AppShell -->
-<Drawer position="right" width="w-64">
+<!-- Sidebar UI -->
+<Drawer position="right" width="w-72">
 	<div class="flex flex-col items-center space-y-4 p-4">
-		<a
-			class="variant-ghost-surface btn btn-sm"
-			href="https://bsky.app/profile/notaussie.bsky.social"
-			target="_blank"
-			rel="noreferrer"
-			aria-label="Bluesky Profile"
-		>
-			<i class="fa-brands fa-bluesky" aria-hidden="true"></i>
-			<span class="ml-2">/notaussie.lol</span>
-		</a>
-
-		<a
-			class="variant-ghost-surface btn btn-sm"
-			href="https://github.com/notaussie/"
-			target="_blank"
-			rel="noreferrer"
-			aria-label="GitHub Profile"
-		>
-			<i class="fa-brands fa-github" aria-hidden="true"></i>
-			<span class="ml-2">/NotAussie</span>
-		</a>
+		{#if $page.data.session}
+			<div class="flex flex-col items-center gap-2 pb-4">
+				<img
+					src={$page.data.session.user?.image ?? '/default-avatar.png'}
+					alt="User avatar"
+					class="h-16 w-16 rounded-full"
+				/>
+				<p class="text-center font-semibold">{$page.data.session.user?.name ?? 'User'}</p>
+			</div>
+		{/if}
 
 		{#if $page.data.session}
-			<button class="variant-ghost-surface btn btn-sm" on:click={() => signOut()}>
+			<button class="variant-ghost-surface btn w-full" onclick={() => signOut()}>
 				<i class="far fa-times-circle"></i>
 				<span class="ml-2">Sign out</span>
 			</button>
 		{/if}
 
-		<LightSwitch />
+		<div class="pt-4">
+			<LightSwitch />
+		</div>
 	</div>
 </Drawer>
 
-<!-- App Shell -->
-<AppShell>
-	{#snippet header()}
-		<!-- App Bar -->
+<div class="flex min-h-screen flex-col">
+	<!-- Header -->
+	<div class="sticky top-0 z-10 w-full">
 		<AppBar>
 			{#snippet lead()}
 				<a href="/"><strong class="text-xl uppercase">Aussie's fort</strong></a>
 			{/snippet}
 
 			{#snippet trail()}
-				<!-- Add hamburger menu for mobile -->
-				<button class="btn btn-sm lg:hidden" on:click={drawerOpen} aria-label="Open menu">
-					<i class="fas fa-bars"></i>
-				</button>
-
-				<!-- Hide original buttons on mobile -->
+				<!-- Desktop social links -->
 				<div class="hidden lg:flex lg:gap-4">
 					<a
 						class="variant-ghost-surface btn btn-sm"
@@ -161,30 +154,23 @@
 					>
 						<i class="fa-brands fa-github" aria-hidden="true"></i>/NotAussie
 					</a>
-
-					{#if $page.data.session}
-						<button class="variant-ghost-surface btn btn-sm" on:click={() => signOut()}>
-							<i class="far fa-times-circle pr-1"></i> Sign out
-						</button>
-					{/if}
 				</div>
+				<button class="btn btn-sm" onclick={drawerOpen} aria-label="Open menu">
+					<i class="fas fa-bars"></i>
+				</button>
 			{/snippet}
 		</AppBar>
-	{/snippet}
+	</div>
 
-	{#snippet pageFooter()}
-		<footer class="flex flex-col items-center p-8">
-			<div class="mb-2 hidden lg:block">
-				<LightSwitch />
-			</div>
-			<div>
-				© 2024 <a href="https://github.com/notaussie" class="pl-1">NotAussie</a>.
-			</div>
-		</footer>
-	{/snippet}
-
-	<!-- Page Route Content -->
-	<main class="lg:pl-5 lg:pt-5">
+	<!-- Main content -->
+	<main class="flex-1 p-4 lg:p-5">
 		{@render children?.()}
 	</main>
-</AppShell>
+
+	<!-- Footer -->
+	<footer class="flex flex-col items-center p-8">
+		<div>
+			© 2024 <a href="https://github.com/notaussie" class="pl-1">NotAussie</a>.
+		</div>
+	</footer>
+</div>

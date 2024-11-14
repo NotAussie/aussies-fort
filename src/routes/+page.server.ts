@@ -20,7 +20,7 @@ export const load: PageLoad = async () => {
 					Authorization: `Basic ${encodedToken}`
 				},
 				cache: {
-					ttl: 1000 * 60 * 5 // Cache request for 5 minutes to prevent spam
+					ttl: 1000 * 60 * 5 // Cache request for 5 minutes to prevent spam, this only applies to the edge instance the user is using
 				}
 			}
 		);
