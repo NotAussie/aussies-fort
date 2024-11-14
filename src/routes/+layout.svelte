@@ -31,7 +31,7 @@
 	// Vercel functions
 	import { inject } from '@vercel/analytics';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
-	import { signOut } from '@auth/sveltekit/client';
+	import { signIn, signOut } from '@auth/sveltekit/client';
 
 	// Initialize Highlight.js languages
 	hljs.registerLanguage('xml', xml); // for HTML
@@ -100,6 +100,13 @@
 <!-- Sidebar UI -->
 <Drawer position="right" width="w-72">
 	<div class="flex flex-col items-center space-y-4 p-4">
+		{#if $page.data.session == null}
+			<button class="variant-ghost-surface btn w-full" onclick={() => signIn()}>
+				<i class="fas fa-sign-in-alt"></i>
+				<span class="ml-2">Sign in</span>
+			</button>
+		{/if}
+
 		{#if $page.data.session}
 			<div class="flex flex-col items-center gap-2 pb-4">
 				<img
@@ -116,7 +123,18 @@
 				<i class="far fa-times-circle"></i>
 				<span class="ml-2">Sign out</span>
 			</button>
+
+			<a href="/dashboard" class="variant-ghost-surface btn w-full">
+					<i class="fas fa-layer-group"></i>
+					<span class="ml-2">Dashboard</span>
+			</a>
 		{/if}
+		
+		<a href="/blog" class="variant-ghost-surface btn w-full">
+			<i class="fas fa-newspaper"></i>
+			<span class="ml-2">Blog</span>
+		</a>
+
 
 		<div class="pt-4">
 			<LightSwitch />
@@ -162,12 +180,10 @@
 		</AppBar>
 	</div>
 
-	<!-- Main content -->
 	<main class="flex-1 p-4 lg:p-5">
 		{@render children?.()}
 	</main>
 
-	<!-- Footer -->
 	<footer class="flex flex-col items-center p-8">
 		<div>
 			© 2024 <a href="https://github.com/notaussie" class="pl-1">NotAussie</a>.

@@ -7,11 +7,13 @@ import { WAKATIME_TOKEN } from '$env/static/private';
 const axiosInstance = axios.create();
 const cachedAxios = setupCache(axiosInstance);
 
+// Store the encoded token
+const encodedToken = Buffer.from(`${WAKATIME_TOKEN}:`).toString('base64');
+
 export const load: PageLoad = async () => {
 	let humanReadableTime: string;
 
 	try {
-		const encodedToken = Buffer.from(`${WAKATIME_TOKEN}:`).toString('base64');
 
 		const response = await cachedAxios.get(
 			'https://wakatime.com/api/v1/users/current/all_time_since_today',
