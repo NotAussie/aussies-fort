@@ -2,12 +2,10 @@
 	import '../app.postcss';
 
 	// Svelte
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 
 	// Skeleton
 	import {
-		AppShell,
 		AppBar,
 		LightSwitch,
 		Drawer,
@@ -99,7 +97,7 @@
 	<meta property="twitter:image" content="https://aussies-fort.vercel.app/banner.png" />
 </svelte:head>
 
-<!-- Update drawer component with new UI -->
+<!-- Sidebar UI -->
 <Drawer position="right" width="w-72">
 	<div class="flex flex-col items-center space-y-4 p-4">
 		{#if $page.data.session}
@@ -126,9 +124,9 @@
 	</div>
 </Drawer>
 
-<!-- Update AppBar to always show hamburger menu -->
-<AppShell>
-	{#snippet header()}
+<div class="flex min-h-screen flex-col">
+	<!-- Header -->
+	<div class="sticky top-0 z-10 w-full">
 		<AppBar>
 			{#snippet lead()}
 				<a href="/"><strong class="text-xl uppercase">Aussie's fort</strong></a>
@@ -162,19 +160,17 @@
 				</button>
 			{/snippet}
 		</AppBar>
-	{/snippet}
+	</div>
 
-	<!-- Update footer to remove LightSwitch since it's in drawer -->
-	{#snippet pageFooter()}
-		<footer class="flex flex-col items-center p-8">
-			<div>
-				© 2024 <a href="https://github.com/notaussie" class="pl-1">NotAussie</a>.
-			</div>
-		</footer>
-	{/snippet}
-
-	<!-- Page Route Content -->
-	<main class="pl-0.5 pt-0.5 lg:pl-5 lg:pt-5">
+	<!-- Main content -->
+	<main class="flex-1 p-4 lg:p-5">
 		{@render children?.()}
 	</main>
-</AppShell>
+
+	<!-- Footer -->
+	<footer class="flex flex-col items-center p-8">
+		<div>
+			© 2024 <a href="https://github.com/notaussie" class="pl-1">NotAussie</a>.
+		</div>
+	</footer>
+</div>
