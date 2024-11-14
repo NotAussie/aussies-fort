@@ -1,14 +1,10 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	let message = $state('');
+	let message = $state<string>('Something went wrong, try again later...');
 
 	onMount(() => {
-		if ($page.error?.message != undefined) {
-			message = $page.error?.message;
-		} else {
-			message = 'Something went wrong, try agian later...';
-		}
+		message = $page.error?.message || message;
 	});
 </script>
 

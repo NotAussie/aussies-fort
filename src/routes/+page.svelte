@@ -7,7 +7,7 @@
 <div class="pl-5 pt-5">
 	<h1 class="h1 pb-4">Hiya! <i class="fa-solid fa-hand-peace"></i></h1>
 
-	<p class="max-w-5xl text-pretty">
+	<p class="prose max-w-5xl text-pretty px-4 dark:prose-invert md:px-0">
 		Hiya, I'm NotAussie! I'm an aviation enthusiast and full-stack programmer, I specialise in
 		building bots and backend APIs. I'm currently studying with FLO (flexible learning options)
 		Australia, I hope to one day study software engineering but I've got a <i>lot</i> to learn before
