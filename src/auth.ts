@@ -13,5 +13,20 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 	providers: [
 		GitHub({ clientId: GITHUB_CLIENT_ID, clientSecret: GITHUB_CLIENT_SECRET }),
 		GitLab({ clientId: GITLAB_CLIENT_ID, clientSecret: GITLAB_CLIENT_SECRET })
-	]
+	],
+	session: {
+		strategy: 'jwt',
+		maxAge: 24 * 60 * 60
+	},
+	cookies: {
+		sessionToken: {
+			name: `__auth__`,
+			options: {
+				httpOnly: true,
+				sameSite: 'strict',
+				path: '/',
+				secure: true
+			}
+		}
+	}
 });

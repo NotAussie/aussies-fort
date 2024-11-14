@@ -3,6 +3,7 @@
 
 	// Svelte
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 
 	// Skeleton
 	import {
@@ -12,7 +13,8 @@
 		getDrawerStore,
 		initializeStores,
 		storeHighlightJs,
-		storePopup
+		storePopup,
+		autoModeWatcher
 	} from '@skeletonlabs/skeleton';
 
 	// Highlight JS
@@ -31,7 +33,8 @@
 	// Vercel functions
 	import { inject } from '@vercel/analytics';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
-	import { signIn, signOut } from '@auth/sveltekit/client';
+	import { signOut } from '@auth/sveltekit/client';
+	import { login } from '$lib/login';
 
 	// Initialize Highlight.js languages
 	hljs.registerLanguage('xml', xml); // for HTML
@@ -66,6 +69,17 @@
 	// Vercel analytics
 	inject();
 	injectSpeedInsights();
+
+	// TODO: Remove once lightswitch has been fixed
+	onMount(() => {
+		(function Gn() {
+			const e = document.documentElement.classList,
+				t = localStorage.getItem('modeUserPrefers') === 'false',
+				n = !('modeUserPrefers' in localStorage),
+				r = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			t || (n && r) ? e.add('dark') : e.remove('dark');
+		})();
+	});
 </script>
 
 <svelte:head>
@@ -100,13 +114,6 @@
 <!-- Sidebar UI -->
 <Drawer position="right" width="w-72">
 	<div class="flex flex-col items-center space-y-4 p-4">
-		{#if $page.data.session == null}
-			<button class="variant-ghost-surface btn w-full" onclick={() => signIn()}>
-				<i class="fas fa-sign-in-alt"></i>
-				<span class="ml-2">Sign in</span>
-			</button>
-		{/if}
-
 		{#if $page.data.session}
 			<div class="flex flex-col items-center gap-2 pb-4">
 				<img
@@ -119,22 +126,28 @@
 		{/if}
 
 		{#if $page.data.session}
-			<button class="variant-ghost-surface btn w-full" onclick={() => signOut()}>
-				<i class="far fa-times-circle"></i>
-				<span class="ml-2">Sign out</span>
-			</button>
-
 			<a href="/dashboard" class="variant-ghost-surface btn w-full">
-					<i class="fas fa-layer-group"></i>
-					<span class="ml-2">Dashboard</span>
+				<i class="fas fa-layer-group"></i>
+				<span class="ml-2">Dashboard</span>
 			</a>
 		{/if}
-		
+
 		<a href="/blog" class="variant-ghost-surface btn w-full">
 			<i class="fas fa-newspaper"></i>
 			<span class="ml-2">Blog</span>
 		</a>
 
+		{#if $page.data.session}
+			<button class="variant-ghost-surface btn w-full" onclick={() => signOut()}>
+				<i class="fas fa-sign-out-alt"></i>
+				<span class="ml-2">Sign out</span>
+			</button>
+		{:else if $page.data.session == null}
+			<button class="variant-ghost-surface btn w-full" onclick={() => login($page.url.pathname)}>
+				<i class="fas fa-sign-in-alt"></i>
+				<span class="ml-2">Sign in</span>
+			</button>
+		{/if}
 
 		<div class="pt-4">
 			<LightSwitch />
