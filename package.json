@@ -46,7 +46,7 @@
 	"dependencies": {
 		"@auth/core": "^0.37.4",
 		"@auth/sveltekit": "^1.7.4",
-		"@floating-ui/dom": "1.6.12",
+		"@floating-ui/dom": "1.6.13",
 		"@vercel/analytics": "^1.4.1",
 		"@vercel/speed-insights": "^1.1.0",
 		"axios": "^1.7.9",
