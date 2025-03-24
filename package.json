@@ -13,7 +13,7 @@
 		"auto:format": "onchange \"src/**/*.{js,ts,svelte}\" -- npm run format"
 	},
 	"devDependencies": {
-		"@skeletonlabs/skeleton": "2.10.4",
+		"@skeletonlabs/skeleton": "3.1.1",
 		"@skeletonlabs/tw-plugin": "0.4.0",
 		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/adapter-vercel": "^5.5.2",
